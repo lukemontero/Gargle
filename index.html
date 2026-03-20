@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gargle Mini-Browser</title>
+<style>
+  body { margin: 0; height: 100vh; display: flex; flex-direction: column; font-family: Arial, sans-serif; }
+  .toolbar { display: flex; gap: 10px; padding: 10px 20px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .toolbar button { font-size: 16px; cursor: pointer; border: none; background: #e4e4e4; border-radius: 5px; padding: 6px 12px; }
+  .toolbar button:hover { background: #d2d2d2; }
+  #urlInput { flex: 1; padding: 6px 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+  #gargle-home { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #f2f2f2; }
+  .logo { font-size: 90px; font-weight: 700; letter-spacing: -4px; margin-bottom: 30px; }
+  .g { color: #4285F4; } .a { color: #EA4335; } .r { color: #FBBC05; } .g2 { color: #4285F4; } .l { color: #34A853; } .e { color: #EA4335; }
+  .search-box { width: 500px; display: flex; background: white; padding: 12px 20px; border-radius: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-bottom: 25px; }
+  .search-box input { flex: 1; border: none; outline: none; font-size: 18px; }
+  .buttons button { padding: 10px 20px; margin: 0 5px; border: none; background: #e4e4e4; border-radius: 5px; font-size: 16px; cursor: pointer; }
+  .buttons button:hover { background: #d2d2d2; }
+  #message { margin-top: 20px; font-size: 20px; font-weight: bold; color: #555; }
+  #browserFrame { flex: 1; width: 100%; border: none; display: none; }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button onclick="goHome()">🏠 Home</button>
+  <input id="urlInput" type="text" placeholder="Type a URL and press Enter..." />
+  <button onclick="goToUrl()">Go</button>
+</div>
+<div id="gargle-home">
+  <div class="logo">
+    <span class="g">G</span><span class="a">a</span><span class="r">r</span><span class="g2">g</span><span class="l">l</span><span class="e">e</span>
+  </div>
+  <div class="search-box">
+    <input id="homeInput" type="text" placeholder="Type something..." />
+  </div>
+  <div class="buttons">
+    <button onclick="feelingSigma()">I'm Feeling Sigma</button>
+  </div>
+  <div id="message"></div>
+</div>
+<iframe id="browserFrame"></iframe>
+<script>
+function feelingSigma() {
+  const phrases = ["I'm feeling Sigma!", "I'm feeling Rizzy!", "I'm feeling skibidi!", "I'm feeling disciplined!", "I'm feeling elite!", "I'm feeling sharp!", "I'm feeling powerful!", "I'm feeling mysterious!", "I'm feeling productive!", "I'm feeling calm and locked-in!"];
+  const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+  document.getElementById("message").textContent = randomPhrase;
+}
+function goToUrl() {
+  let url = urlInput.value.trim() || homeInput.value.trim();
+  if (!url) return;
+  if (!url.startsWith("http")) url = "https://" + url;
+  const iframe = document.getElementById("browserFrame");
+  iframe.src = url;
+  iframe.style.display = "block";
+  document.getElementById("gargle-home").style.display = "none";
+}
+function goHome() {
+  document.getElementById("gargle-home").style.display = "flex";
+  document.getElementById("browserFrame").style.display = "none";
+  urlInput.value = "";
+  homeInput.value = "";
+}
+urlInput.addEventListener("keypress", e => { if(e.key === "Enter") goToUrl(); });
+homeInput.addEventListener("keypress", e => { if(e.key === "Enter") goToUrl(); });
+</script>
+</body>
+</html>
